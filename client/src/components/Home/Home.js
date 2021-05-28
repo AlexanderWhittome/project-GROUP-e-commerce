@@ -27,8 +27,8 @@ const Home = ({}) => {
       <Wrapper>
         <p>Page number: {params.pageNum}</p>
         <SubWrapper numberPerRow={4} >
-          {productsArray.map(() => {
-            return <ItemPreview />;
+          {productsArray.map((item) => {
+            return <ItemPreview imgSrc={item.imgSrc}/>;
           })}
         </SubWrapper>
         <Paginator></Paginator>
