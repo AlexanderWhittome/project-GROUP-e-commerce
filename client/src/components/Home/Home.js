@@ -26,9 +26,9 @@ const Home = ({}) => {
     <>
       <Wrapper>
         <p>Page number: {params.pageNum}</p>
-        <SubWrapper>
+        <SubWrapper numberPerRow={4} >
           {productsArray.map(() => {
-            return <ItemPreview numberPerRow={4} />;
+            return <ItemPreview />;
           })}
         </SubWrapper>
         <Paginator></Paginator>
@@ -40,6 +40,11 @@ const SubWrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  &>div {
+    width: ${(props) => {
+    return 100 / props.numberPerRow.toString() + "%";
+  }};
+  }
 `;
 
 const Wrapper = styled.div``;
