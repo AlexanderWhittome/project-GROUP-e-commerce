@@ -10,12 +10,6 @@ const GenericInputField = ({ number }) => {
         {number}
         <input type="number" name="itemNumber" />
       </label>
-      {/* not needed if cart button validates item num*/}
-      {/* <input type="submit" value="Submit" /> */}
-
-      {/* button for increment and decrement */}
-      {/* <button>+</button>  */}
-      {/* <button>-</button>  */}
     </Form>
   );
 };
@@ -26,9 +20,7 @@ const Form = styled.div`
   height: 50px;
   width: 10px;
   font-size: 16px;
-
   /* font-family */
-
   label {
     display: none;
   }
@@ -43,10 +35,6 @@ const Form = styled.div`
     height: 36px;
     padding: 8px 12px 10px 12px;
     width: 100%;
-
-    /* &::placeholder {
-      color: #999;
-    } */
   }
 `;
 
