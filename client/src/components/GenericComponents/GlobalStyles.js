@@ -31,7 +31,7 @@ export default createGlobalStyle`
     time, mark, audio, video {
         margin: 0;
         padding: 0;
-        border: 0;
+        /* border: 0; */ //TODO uncomment after we don't need {* {border:1px etc etc}}
         font-size: 100%;
         vertical-align: baseline;
         box-sizing: border-box;
@@ -57,7 +57,6 @@ export default createGlobalStyle`
     }
 
 
-
     button:hover {
       cursor:pointer;
     }
@@ -67,4 +66,8 @@ export default createGlobalStyle`
     a:visited {
       color:inherit;
     }
+    * {
+      border: 1px #f80 dashed;
+    }
+
 `;
