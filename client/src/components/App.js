@@ -4,15 +4,16 @@ import styled from "styled-components";
 import GlobalStyles from "./GenericComponents/GlobalStyles";
 import Home from "./Home/Home";
 import SiteHeader from "./SiteHeader";
+import ItemDetails from "./ItemDetails";
 function App() {
   return (
     <>
-      <GlobalStyles/>
+      <GlobalStyles />
       <Wrapper>
-        <SiteHeader/>
+        <SiteHeader />
         <Switch>
           <Route exact path={["/", "/page/:pageNum"]}>
-            <Home/>
+            <Home />
           </Route>
           {/*useParams.pageNum may be undefined if path is "/" */}
           <Route exact path="/product/:productId">
@@ -43,9 +44,9 @@ function App() {
 }
 
 const Wrapper = styled.div`
-max-width:1000px;
-width:80%;
-margin:0px auto 20px;
-`
+  max-width: 1000px;
+  width: 80%;
+  margin: 0px auto 20px;
+`;
 
 export default App;

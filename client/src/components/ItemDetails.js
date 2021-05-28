@@ -1,9 +1,13 @@
-import { useState, Component } from "react";
-import data from ".../server/data/items.json";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import items from ".../server/data/items";
 import { Link } from "react-router-dom";
 import { GenericButton } from "./GenericComponents/GenericButton";
 
 const ItemDetails = () => {
+  const { itemId } = useParams();
   const [itemdetail, getItemDetail] = useState([]);
-  console.log(data);
+  console.log(items);
 };
+
+export default ItemDetails;
