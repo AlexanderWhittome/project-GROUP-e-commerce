@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Thumbnail from "./GenericComponents/Thumbnail";
+import Thumbnail from "../GenericComponents/Thumbnail"
 const ItemPreview = ({ numberPerRow = 4 }) => {
   return (
     <Wrapper numberPerRow={numberPerRow}>

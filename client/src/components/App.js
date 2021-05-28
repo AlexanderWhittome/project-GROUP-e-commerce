@@ -11,7 +11,7 @@ function App() {
       <Wrapper>
         <SiteHeader/>
         <Switch>
-          <Route path={["/", "/:pageNum"]}>
+          <Route exact path={["/", "/page/:pageNum"]}>
             <Home/>
           </Route>
           {/*useParams.pageNum may be undefined if path is "/" */}
