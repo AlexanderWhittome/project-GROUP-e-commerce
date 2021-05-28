@@ -9,6 +9,7 @@ const Thumbnail = styled.img`
 
   :hover {
     transform: scale(1.2);
+    z-index: 1;
   }
 `;
 
