@@ -5,6 +5,8 @@ import GlobalStyles from "./GenericComponents/GlobalStyles";
 import Home from "./Home/Home";
 import SiteHeader from "./SiteHeader";
 function App() {
+
+  
   return (
     <>
       <GlobalStyles/>

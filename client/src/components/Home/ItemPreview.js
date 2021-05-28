@@ -11,9 +11,7 @@ const ItemPreview = ({ numberPerRow = 4 }) => {
   );
 };
 const Wrapper = styled.div`
-  width: ${(props) => {
-    return 100 / props.numberPerRow.toString() + "%";
-  }};
+  
   text-overflow:ellipsis;
 `;
 
