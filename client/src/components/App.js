@@ -6,6 +6,8 @@ import Home from "./Home/Home";
 import SiteHeader from "./SiteHeader";
 import ItemDetails from "./ItemDetails";
 function App() {
+
+  
   return (
     <>
       <GlobalStyles />
