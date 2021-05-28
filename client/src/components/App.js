@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Switch, Route, useParams } from "react-router-dom";
 import styled from "styled-components";
 import GlobalStyles from "./GenericComponents/GlobalStyles";
-import Home from "./Home";
+import Home from "./Home/Home";
 import SiteHeader from "./SiteHeader";
 function App() {
   return (
@@ -45,7 +45,7 @@ function App() {
 const Wrapper = styled.div`
 max-width:1000px;
 width:80%;
-margin:0px auto;
+margin:0px auto 20px;
 `
 
 export default App;
