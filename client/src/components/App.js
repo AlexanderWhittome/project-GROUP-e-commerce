@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Switch, Route, useParams } from "react-router-dom";
 import styled from "styled-components";
 import GlobalStyles from "./GenericComponents/GlobalStyles";
+import Home from "./Home";
 import SiteHeader from "./SiteHeader";
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
         <SiteHeader/>
         <Switch>
           <Route path={["/", "/:pageNum"]}>
-            I'm a placeholder for 24-product-view. Page number: {useParams.pageNum}
+            <Home/>
           </Route>
           {/*useParams.pageNum may be undefined if path is "/" */}
           <Route exact path="/product/:productId">
