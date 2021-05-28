@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useParams, Link } from "react-router-dom";
 
 const Paginator = ({}) => {
-  console.log(`❗ Paginator.js:6 'useParams()' <${typeof useParams()}>`,useParams());
   const currentPage = parseInt(useParams().pageNum) || 1;
   const isLastPage = false; //TODO
   const [prevPageURL, nextPageURL] = [
