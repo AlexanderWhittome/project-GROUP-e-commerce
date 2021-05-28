@@ -3,18 +3,13 @@ import { createGlobalStyle } from "styled-components";
 // export const breakpoints = { tablet: "600px" };
 
 export default createGlobalStyle`
-    :root {
-      /* --primary-color: #cc5500;
-      --primary-lighter: #ff6a00;
-      --accent-bg-color: rgba(204, 85, 0, 0.1);
-      --page-horizontal-padding: 20px;
-      --header-height: 50px;
-      --max-content-width: 1200px;
-      --heading-font-family: 'Teko', sans-serif;
-      --user-img-width: 120px;
-      --heading1-height:40px;
-      --profile-top-space:300px; */
-    }
+    /* :root {
+       main: background: #011627;
+      buttons: #2EC4B6;
+      element background: #FF9F1C;
+      text: #FDFFFC;
+      misc: #E71D36; 
+  } */
 
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
