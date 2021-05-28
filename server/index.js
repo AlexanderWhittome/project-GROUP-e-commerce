@@ -26,6 +26,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", express.static(__dirname + "/"));
 
 // REST endpoints?
-app.get("/bacon", (req, res) => res.status(200).json("🥓"));
+app.get("/api/product/:pagenumber", (req, res) => res.status(200).json());
+
+app.get("/api/product/:id", (req, res) => res.status(200).json());
+
+app.get("/api/company/:id", (req, res) => res.status(200).json());
+
+app.put("/api/product/:id/", (req, res) => res.status(200).json());
 
 app.listen(PORT, () => console.info(`Listening on port ${PORT}`));
