@@ -4,11 +4,11 @@ import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
     /* :root {
-       main: background: #011627;
+      main: background: #011627;
       buttons: #2EC4B6;
       element background: #FF9F1C;
       text: #FDFFFC;
-      misc: #E71D36; 
+      misc: #E71D36;  
   } */
 
     html, body, div, span, applet, object, iframe,
