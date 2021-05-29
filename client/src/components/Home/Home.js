@@ -39,8 +39,11 @@ const Home = ({}) => {
 const SubWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content:center;
   flex-wrap: wrap;
+  padding:5px; //bobby
   &>div {
+    border:5px rgba(0,0,0,0) solid; //bobby
     width: ${(props) => {
     return 100 / props.numberPerRow.toString() + "%";
   }};

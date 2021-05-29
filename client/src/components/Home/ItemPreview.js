@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Thumbnail from "../GenericComponents/Thumbnail";
 const ItemPreview = ({ imgSrc = "http://via.placeholder.com/100x100" }) => {
-  return (
+return (
     <Wrapper>
       <Thumbnail src={imgSrc} />
       <Noverflow>
@@ -16,19 +16,19 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  &>:last-child {
-    margin-bottom:10px;
+  & > :last-child {
+    margin-bottom: 10px;
   }
 `;
 
 const Noverflow = styled.div`
+  padding: 3px;
   font-weight: 700;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
-  margin:10px;
-  
+  margin: 10px;
 `;
 
 const ProductName = ({ short = false }) => {};
