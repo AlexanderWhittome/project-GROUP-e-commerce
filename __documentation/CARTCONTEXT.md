@@ -68,13 +68,15 @@ Here are the properties expected when you call cartDispatch with `type: update`:
 ```js
 React.useContext(CartContext).cartDispatch({
   type: update,
-  productId: productId,
+  itemId: itemId,
   newNumInCart: newNumInCart,
 });
 ```
 
+This sets cartContents.itemId to newNumInCart (it doesn't do the math for you).
+
 Notice that you don't need the whole item object, just the ID. You also need the new number of items to be held in cart.
 
-If newNumInCart is set to 0, the product going by `productID` will be removed from the cart.
+If newNumInCart is set to 0, the product going by `itemID` will be removed from the cart.
 
 **There is no validation to ensure the cart doesn't hold more of an item than is in stock.**
