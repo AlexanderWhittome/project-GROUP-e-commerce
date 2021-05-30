@@ -4,8 +4,8 @@ export const GenericButton = styled.button`
   position: relative;
   background: transparent;
   border-color: transparent;
-  border-radius: 13px 13px 13px 13px;
-  color: #fff;
+  border-radius: 13px;
+  /* color: #fff; */
   cursor: pointer;
   display: block;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
@@ -13,5 +13,5 @@ export const GenericButton = styled.button`
   font-weight: 600;
   margin: 16px auto;
   height: 42px;
-  width: 25%;
+  /* width: 25%; */
 `;

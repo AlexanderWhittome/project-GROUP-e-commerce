@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Thumbnail = styled.img`
   position: relative;
   height: 152px;
-  width: 100%;
+  width: 152px;
   background-size: cover;
   overflow: hidden;
 
