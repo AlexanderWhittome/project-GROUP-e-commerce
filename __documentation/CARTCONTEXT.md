@@ -7,7 +7,7 @@ CartContext will be wrapped around the whole app. To use it in your component, f
 You can access the values in the context with:
 `const {cartContents, cartDispatch} = React.useContext(CartContext)`
 
-You can expect the context to hold the following object:
+You can expect the context to hold the following object (id 6543 will actually be included in the context by default in cartContents for testing purposes)
 
 ```js
 {cartContents:{ //notice that cartContents is not an array, unlike items.json
