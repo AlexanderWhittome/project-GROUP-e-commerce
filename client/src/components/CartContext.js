@@ -26,7 +26,6 @@ const cartReducer = (state, action) => {
       } else {
         state[action.itemId].numInCart = action.newNumInCart;
       }
-
       break;
     default:
       throw new Error(`${action.type} is not a valid type property`);
