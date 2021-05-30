@@ -1,18 +1,17 @@
-CartContext will be wrapped around the whole app. To use it in your app, first import it:
+CartContext will be wrapped around the whole app. To use it in your component, first import it:
 
-`import {CartContext} from "(relative path to CartContext)"`
+`import {CartContext} from "(relative path to CartContext*)"`
 
-(It will be located directly in the components folder, so adjust the path based on that)
+(*It will be located directly in the components folder, so adjust the path based on that)
 
 You can access the values in the context with:
-
-`const {somePropYouNeed,someOtherPropYouNeed} = React.useContext(CartContext)`
+`const {cartContents, cartDispatch} = React.useContext(CartContext)`
 
 You can expect the context to hold the following object:
 
 ```js
 {cartContents:{ //notice that cartContents is not an array, unlike items.json
-  6543: { 
+  6543: {
   name: "Barska GB12166 Fitness Watch with Heart Rate Monitor",
   price: "$49.99",
   body_location: "Wrist",
@@ -20,26 +19,30 @@ You can expect the context to hold the following object:
   imageSrc: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHB...<REST_OF_IMAGE_ENCODING>",
   companyId: 19962,
   numInStock: 9,
-  numInCart: 5 
+  numInCart: 5
 }
   1234: {/*Some other object with the same properties*/}
 }
-addItemToCart: [[function]],
-updateCartContents: [[function]],
+cartDispatch: //a function
 }
 ```
-`addItemToCart` and `updateCartContents` are functions.
 
---------
+cartDispatch is used to change cartContents.
+---
 
- Here are the arguments expected by `addItemToCart`:
+Here are the properties expected when calling cartDispatch with `{type:"add"}`
 
- 
-`addItemToCart(itemObject, numberAddedToCart)`
+```js
+React.useContext(CartContext).cartDispatch({
+  type: "add",
+  itemObject: itemObject,
+  numberAddedToCart: numberAddedToCart
+});
+```
 
 There is no reason that I can think of for this function to be called outside the `localhost:3000/product/:id` route.
 
-`numberAddedtoCart` is just an int representing the number items added to the cart. ***Don't allow it to be more than what's in stock. The context functions won't stop you if you put more into the cart than is in stock.***
+`numberAddedtoCart` is just an int representing the number of items added to the cart. **Don't allow it to be more than what's in stock. The context functions won't stop you if you put more into the cart than is in stock.**
 
 `itemObject` should be of the exact same shape as the item objects you get as the body of the response from the `GET: "/api/product/:id"` endpoint, except as JS not JSON:
 
@@ -55,17 +58,23 @@ There is no reason that I can think of for this function to be called outside th
     companyId: 19962
   },
 ```
-This means if you're at the product page route and you fetched stored that object in state, all you have to do is pass that state as the first argument. 
 
-------
+This means if you're at the product page route, you should have that object in state. All you have to do is pass that state as itemObject.
 
- Here are the arguments expected by `updateCartContents`:
+---
 
-`updateCartContents(productId, newNumInCart)`
+Here are the properties expected when you call cartDispatch with `type: update`:
+
+```js
+React.useContext(CartContext).cartDispatch({
+  type: update,
+  productId: productId,
+  newNumInCart: newNumInCart,
+});
+```
 
 Notice that you don't need the whole item object, just the ID. You also need the new number of items to be held in cart.
 
-If newNumInCart is set to 0, the product going by `productID` will be removed from the cart. 
+If newNumInCart is set to 0, the product going by `productID` will be removed from the cart.
 
-***There is no validation to ensure the cart doesn't hold more of an item than is in stock.***
-
+**There is no validation to ensure the cart doesn't hold more of an item than is in stock.**
