@@ -27,14 +27,12 @@ const CartItemSummary = (props) => {
               type="number"
               name="num-in-cart"
               onChange={(ev) => {
-                console.log(`❗ CartItemSummary.js:22 'ev' <${typeof ev}>`, ev);
-                console.log(
-                  `❗ CartItemSummary.js:25 'ev.target.value' <${typeof ev
-                    .target.value}>`,
-                  ev.target.value
-                );
+
                 setNewNumInCart(ev.target.value);
-              }}
+              }
+            }
+            
+            onBlur={(ev)=>{console.log(`❗ CartItemSummary.js:40 'ev.target.value' <${typeof ev.target.value}>`,ev.target.value);}}
               value={newNumInCart}
             ></GenericInputField>
           </PriceMath>

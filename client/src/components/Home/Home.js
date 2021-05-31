@@ -6,15 +6,18 @@ import Paginator from "./Paginator";
 const Home = ({}) => {
   const params = useParams();
   const [productsArray, setProductsArray] = React.useState([]);
+  const [maxPage, setMaxPage] = React.useState(1);
 
-  const fetchProductsArray = async (pageNum) => {
-    // const res = await fetch(`http://localhost:4000/api/homepage/${pageNum}`);
-    // const json = await res.json();
-    // console.log(`❗ Home.js:11 'json' <${typeof json}>`, json);
-    // setProductsArray(JSON.parse(json).body)
-    setProductsArray([ //TODO remove this placeholder once endpoint functional
-      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    ])
+  const fetchProductsArray = async (pageNum=1) => {
+    const res = await fetch(`/api/product?pageNumber=${pageNum}`);
+    console.log(`❗ Home.js:13 'pageNum' <${typeof pageNum}>`,pageNum);
+    const json = await res.json();
+    console.log(`❗ Home.js:11 'json' <${typeof json}>`, json);
+    setProductsArray(json.data.products);
+    setMaxPage(json.data.maxPage);
+    // setProductsArray([ //TODO remove this placeholder once endpoint functional
+    //   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    // ])
   };
 
   React.useEffect(() => {
@@ -28,10 +31,10 @@ const Home = ({}) => {
         <p>Page number: {params.pageNum}</p>
         <SubWrapper numberPerRow={4} >
           {productsArray.map((item) => {
-            return <ItemPreview imgSrc={item.imgSrc}/>;
+            return <ItemPreview {...item}/>;
           })}
         </SubWrapper>
-        <Paginator></Paginator>
+        <Paginator maxPage={maxPage} ></Paginator>
       </Wrapper>
     </>
   );
@@ -42,7 +45,7 @@ const SubWrapper = styled.div`
   justify-content:center;
   flex-wrap: wrap;
   padding:5px; //bobby
-  &>div {
+  & > div {
     border:5px rgba(0,0,0,0) solid; //bobby
     width: ${(props) => {
     return 100 / props.numberPerRow.toString() + "%";

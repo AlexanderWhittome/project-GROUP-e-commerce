@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { useParams, Link } from "react-router-dom";
 
-const Paginator = ({}) => {
+const Paginator = ({maxPage}) => {
   const currentPage = parseInt(useParams().pageNum) || 1;
-  const isLastPage = false; //TODO
+  const isLastPage = currentPage == maxPage ; //TODO
   const [prevPageURL, nextPageURL] = [
     `${currentPage - 1}`,
     `${useParams().pageNum ? "" : "page/"}${ currentPage + 1}`,

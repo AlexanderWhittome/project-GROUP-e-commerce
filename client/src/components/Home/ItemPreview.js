@@ -1,15 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 import Thumbnail from "../GenericComponents/Thumbnail";
-const ItemPreview = ({ imgSrc = "http://via.placeholder.com/100x100" }) => {
+import {useHistory} from "react-router-dom";
+const ItemPreview = ({ _id,imageSrc,name,price}) => {
+  const history = useHistory();
 return (
-    <Wrapper>
-      <Thumbnail src={imgSrc} />
-      <Noverflow>
-        I'm a placeholder12345678912345678912345879123456789123456789
-      </Noverflow>
-      <p>$420.69</p>
-    </Wrapper>
+
+      <Wrapper onClick={()=>history.push(`/product/${_id}`)}>
+        <Thumbnail src={imageSrc} />
+        <Noverflow>
+          {name}
+        </Noverflow>
+        <p>{price}</p>
+      </Wrapper>
+
   );
 };
 const Wrapper = styled.div`
