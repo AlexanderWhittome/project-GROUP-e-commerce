@@ -1,44 +1,62 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useRef } from "react";
+import styled, { keyframes } from "styled-components";
 import GenericInputField from "../GenericComponents/GenericInputField";
 import { GenericButton } from "../GenericComponents/GenericButton";
 import Thumbnail from "../GenericComponents/Thumbnail";
+import { CartContext } from "../CartContext";
 
 const CartItemSummary = (props) => {
-
+  const { cartContents, cartDispatch } = React.useContext(CartContext);
   const [deleteDialogVisible, setDeleteDialogVisible] = React.useState(false);
+  const [newNumInCart, setNewNumInCart] = React.useState(
+    cartContents[props.id].numInCart
+  );
   const total =
-    Math.round(parseFloat(props.price.slice(1)) * props.numInCart * 100) / 100;
+    Math.round(
+      parseFloat(cartContents[props.id].price.slice(1)) * newNumInCart * 100
+    ) / 100;
   return (
     <Row>
-      <Thumbnail src={props.imageSrc}></Thumbnail>
+      <Thumbnail src={cartContents[props.id].imageSrc}></Thumbnail>
       <Row>
         <Details>
-          <div>{props.name}</div>
-          <div>
-            {props.price + " \u00D7"}
-            <GenericInputField number={props.numInCart}></GenericInputField>
-          </div>
-          <div>Total: {total}</div>
+          <ItemName>{cartContents[props.id].name}</ItemName>
+          <PriceMath>
+            {cartContents[props.id].price + " \u00D7"}
+            <GenericInputField
+              type="number"
+              name="num-in-cart"
+              onChange={(ev) => {
+                console.log(`❗ CartItemSummary.js:22 'ev' <${typeof ev}>`, ev);
+                console.log(
+                  `❗ CartItemSummary.js:25 'ev.target.value' <${typeof ev
+                    .target.value}>`,
+                  ev.target.value
+                );
+                setNewNumInCart(ev.target.value);
+              }}
+              value={newNumInCart}
+            ></GenericInputField>
+          </PriceMath>
+          <Total total={total}></Total>
         </Details>
         <DeleteBlock>
           {!deleteDialogVisible && (
             <GenericButton
-              onClick={(ev) => 
-
-                  setDeleteDialogVisible((state) => !state)}
+              onClick={(ev) => setDeleteDialogVisible((state) => !state)}
             >
               Remove from cart
             </GenericButton>
           )}
           {deleteDialogVisible && [
             <GenericButton
-              onClick={(ev)=>{
-                props.cartDispatch({
-                type: "update",
-                itemId: props.id,
-                newNumInCart: 0,
-              })}}
+              onClick={(ev) => {
+                cartContents[props.id].cartDispatch({
+                  type: "update",
+                  itemId: cartContents[props.id].id,
+                  newNumInCart: 0,
+                });
+              }}
             >
               {"\u2713"}
             </GenericButton>,
@@ -65,6 +83,15 @@ const Details = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   width: 75%;
+  & > div {
+    padding: 5px;
+  }
+`;
+
+const PriceMath = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 `;
 
 const DeleteBlock = styled.div`
@@ -74,6 +101,41 @@ const DeleteBlock = styled.div`
   align-items: center;
 
   width: 25%;
+`;
+const updateTotalAnimation = keyframes`
+0% {opacity:1}
+100% {opacity:0}
+`;
+const ItemName = styled.div``;
+
+const Total = ({ total }) => {
+  return (
+    <TotalDiv key={total} total={total}>
+      <span>Total: {total}</span>
+    </TotalDiv>
+  );
+};
+
+const TotalDiv = styled.div`
+  position: relative;
+  & span {
+    position: relative;
+    z-index: 1;
+  }
+  & span::after {
+    content: "";
+    position: absolute;
+    background-color: #fea;
+    top: -3px;
+    left: -3px;
+    color: rgba(0, 0, 0, 0);
+    z-index: -1;
+    border: 3px #fec solid;
+    border-radius: 2px;
+    width: 100%;
+    height: 100%;
+    animation: ${updateTotalAnimation} 2s forwards;
+  }
 `;
 
 export default CartItemSummary;

@@ -9,27 +9,24 @@ import Home from "./Home/Home";
 import SiteHeader from "./SiteHeader";
 import ItemDetails from "./Item/ItemDetails";
 function App() {
-
   return (
     <>
       <CartContextProvider>
-        <GlobalStyles/>
+        <GlobalStyles />
         <Wrapper>
-          <SiteHeader/>
+          <SiteHeader />
           <Switch>
             <Route exact path={["/", "/page/:pageNum"]}>
-              <Home/>
+              <Home />
             </Route>
             {/*useParams.pageNum may be undefined if path is "/" */}
             <Route exact path="/product/:productId">
-              I'm a placeholder for 1-product-view
+              <ItemDetails></ItemDetails>
             </Route>
             <Route exact path="/cart">
               <Cart></Cart>
             </Route>
-            <Route exact path="/test1">
-              
-            </Route>
+            <Route exact path="/test1"></Route>
             <Route exact path="/test1">
               Use me as a sandbox
             </Route>
