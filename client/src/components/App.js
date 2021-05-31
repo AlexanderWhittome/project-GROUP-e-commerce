@@ -7,7 +7,7 @@ import CartContextProvider from "./CartContext";
 import GlobalStyles from "./GenericComponents/GlobalStyles";
 import Home from "./Home/Home";
 import SiteHeader from "./SiteHeader";
-import ItemDetails from "./ItemDetails";
+import ItemDetails from "./Item/ItemDetails";
 function App() {
 
   return (

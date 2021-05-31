@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 // import { CartContextProvider } from "../CartContext";
 import { Link } from "react-router-dom";
-import Thumbnail from "../components/GenericComponents/Thumbnail";
+import Thumbnail from "../GenericComponents/Thumbnail";
 import styled from "styled-components";
 import CompanyInfo from "./CompanyInfo";
 
