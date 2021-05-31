@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 const CompanyInfo = () => {
-  //   const { companyId } = useParams();
+  // const { companyId } = useParams();
   const [company, setCompany] = React.useState([]);
   let sampleCompany = {
     name: "Barska",
