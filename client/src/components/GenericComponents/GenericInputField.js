@@ -12,7 +12,6 @@ const GenericInputField = styled.input`
   font-weight: 300;
   height: 36px;
   padding: 8px 12px 10px 12px;
-  width: 100%;
 `;
 
 export default GenericInputField;
