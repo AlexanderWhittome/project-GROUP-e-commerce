@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-export const CartContext = React.createContext({});
+export const CartContext = React.createContext({
+  cartContents: {},
+  cartDispatch: null,
+});
 
 const cartReducer = (state, action) => {
   console.log(`❗ CartContext.js:6 'state' <${typeof state}>`, state);
@@ -13,24 +16,27 @@ const cartReducer = (state, action) => {
       } else if (state[action.itemsObject.numInCart] === 0) {
         throw new Error(`numInCart cannot be 0 with type: add`);
       }
-      state[action.itemObject.id] = action.itemObject;
-      break;
+      return {...state, [action.itemObject.id]:action.itemObject};
+
     case "update":
       //undefined.numInCart already throws an error
       if (!action.newNumInCart && action.newNumInCart != 0) {
         throw new Error(
           `${action.newNumInCart} is not a valid newNumInCart value`
         );
-      } else if (!action.newNumInCart) {
-        delete state[action.itemId];
+      } else if (action.newNumInCart==0) {
+        const newState = {...state};
+        delete newState[action.itemId];
+        console.log(`❗ CartContext.js:31 'newState' <${typeof newState}>`,newState);
+        return newState;
       } else {
-        state[action.itemId].numInCart = action.newNumInCart;
+        return {...state, [action.itemId]:{...state[action.itemId],numInCart: action.newNumInCart}}
+
       }
-      break;
+
     default:
       throw new Error(`${action.type} is not a valid type property`);
   }
-  console.log(`❗ CartContext.js:16 'state' <${typeof state}>`, state);
 };
 export const CartContextProvider = ({ children }) => {
   const [cartContents, cartDispatch] = React.useReducer(cartReducer, {
@@ -38,6 +44,7 @@ export const CartContextProvider = ({ children }) => {
     6543: {
       name: "Barska GB12166 Fitness Watch with Heart Rate Monitor",
       price: "$49.99",
+      id: 6543,
       body_location: "Wrist",
       category: "Fitness",
       imageSrc:
@@ -47,6 +54,7 @@ export const CartContextProvider = ({ children }) => {
       numInCart: 5,
     },
   });
+  console.log(`❗ CartContext.js:60 'cartContents' <${typeof cartContents}>`,cartContents);
   return (
     <CartContext.Provider
       value={{ cartContents: cartContents, cartDispatch: cartDispatch }}

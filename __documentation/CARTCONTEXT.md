@@ -13,6 +13,7 @@ You can expect the context to hold the following object (id 6543 will actually b
 {cartContents:{ //notice that cartContents is not an array, unlike items.json
   6543: {
   name: "Barska GB12166 Fitness Watch with Heart Rate Monitor",
+  id:6543,
   price: "$49.99",
   body_location: "Wrist",
   category: "Fitness",

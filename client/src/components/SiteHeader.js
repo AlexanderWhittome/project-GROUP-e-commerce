@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { CartContext } from "./CartContext";
 
-const SiteHeader = ({}) => {
+const SiteHeader = () => {
 
-  const cartProductCount = Object.keys(React.useContext(CartContext).cartContents).length
+  const {cartContents} = React.useContext(CartContext);
+  const cartProductCount = Object.keys(cartContents).length;
 
   return (
     <Wrapper>
