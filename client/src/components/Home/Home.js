@@ -8,7 +8,7 @@ const Home = ({}) => {
   const [productsArray, setProductsArray] = React.useState([]);
 
   const fetchProductsArray = async (pageNum) => {
-    // const res = await fetch(`/api/homepage/${pageNum}`);
+    // const res = await fetch(`http://localhost:4000/api/homepage/${pageNum}`);
     // const json = await res.json();
     // console.log(`❗ Home.js:11 'json' <${typeof json}>`, json);
     // setProductsArray(JSON.parse(json).body)
