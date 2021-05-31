@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-// import { CartContextProvider } from "../CartContext";
+import { CartContext } from "../CartContext";
 import { Link } from "react-router-dom";
-import Thumbnail from "../GenericComponents/Thumbnail";
+import ItemThumbnail from "./ItemThumbnail";
+import { CartButton } from "./ItemCartButton";
 import styled from "styled-components";
 import CompanyInfo from "./CompanyInfo";
+import GenericInputField from "../GenericComponents/GenericInputField";
 
-const ItemDetails = ({}) => {
+const ItemDetails = (props) => {
   let item = {
     name: "Barska GB12166 Fitness Watch with Heart Rate Monitor",
     price: "$49.99",
@@ -24,25 +26,34 @@ const ItemDetails = ({}) => {
   const fetchItemDetail = async (itemId) => {
     // const res = await fetch(`/api/product/${itemId}`);
     // const json = await res.json();
-    // setItemDetail(JSON.parse(json).body)
+    // setItemDetail(JSON.parse(json).body);
   };
 
   React.useEffect(() => {
-    // fetchItemDetail(itemId.itemId);
+    fetchItemDetail(itemId);
     console.log(`❗ ItemDetails.js:20 'refetching item'`);
   }, [itemId]);
+
+  const { cartContents, cartDispatch } = React.useContext(CartContext);
 
   return (
     <ItemWrapper>
       <ItemName>{item.name}</ItemName>
-      <Imagediv>
-        <Thumbnail src={item.imageSrc}></Thumbnail>
-      </Imagediv>
-
+      <ItemThumbnail src={item.imageSrc}></ItemThumbnail>
       <CompanyInfo></CompanyInfo>
-
       <ItemPurchase>
-        <CartButton>button</CartButton>
+        <CartButton
+          onClick={(ev) => {
+            props.cartDispatch({
+              type: "add",
+              itemObject: item,
+              numberAddedToCart: 1,
+            });
+          }}
+        >
+          Add Cart
+        </CartButton>
+        <GenericInputField number={props.numInCart}></GenericInputField>
         <ItemPrice>{item.price}</ItemPrice>
       </ItemPurchase>
       <ItemPosition>
@@ -53,11 +64,7 @@ const ItemDetails = ({}) => {
   );
 };
 
-const ItemWrapper = styled.div`
-  border-color: white;
-`;
-
-const Imagediv = styled.div``;
+const ItemWrapper = styled.div``;
 
 const ItemName = styled.h1`
   font-weight: bolder;
@@ -72,21 +79,9 @@ const ItemPurchase = styled.div`
   gap: 60px;
   justify-content: center;
   margin-bottom: 30px;
+  margin-top: 30px;
 `;
 
-const CartButton = styled.button`
-  position: relative;
-  background: blue;
-  border-color: transparent;
-  border-radius: 13px 13px 13px 13px;
-  color: #fff;
-  cursor: pointer;
-  display: block;
-  font-family: "Poppins", Arial, Helvetica, sans-serif;
-  font-size: 1.4rem;
-  font-weight: 600;
-  width: 15%;
-`;
 const ItemPrice = styled.h1`
   align-self: center;
 `;
