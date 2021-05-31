@@ -1,5 +1,10 @@
 "use strict";
-
+const {
+  getProducts,
+  getSingleProduct,
+  getSingleCompany,
+  updateProductById,
+} = require("./Handlers");
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
@@ -25,13 +30,15 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/", express.static(__dirname + "/"));
 
-// REST endpoints?
-app.get("/api/product/:pagenumber", (req, res) => res.status(200).json());
+// REST endpoints
+app.get("/api/product", getProducts);
 
-app.get("/api/product/:id", (req, res) => res.status(200).json());
+app.get("/api/product/:id", getSingleProduct);
 
-app.get("/api/company/:id", (req, res) => res.status(200).json());
+app.get("/api/test", (req, res) => res.status(202).end());
 
-app.put("/api/product/:id/", (req, res) => res.status(200).json());
+app.get("/api/company/:id", getSingleCompany);
+
+app.put("/api/product/:id", updateProductById);
 
 app.listen(PORT, () => console.info(`Listening on port ${PORT}`));

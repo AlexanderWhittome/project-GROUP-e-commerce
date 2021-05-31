@@ -3,13 +3,13 @@ import { createGlobalStyle } from "styled-components";
 // export const breakpoints = { tablet: "600px" };
 
 export default createGlobalStyle`
-    /* :root {
-      main: background: #011627;
-      buttons: #2EC4B6;
-      element background: #FF9F1C;
-      text: #FDFFFC;
-      misc: #E71D36;  
-  } */
+    :root {
+      --primary-color: #011627;
+      --buttons: #2EC4B6;
+      --secondary-color: #FF9F1C;
+      --text: #FDFFFC;
+      --misc: #E71D36;  
+    } 
 
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
