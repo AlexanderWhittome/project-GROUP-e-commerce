@@ -9,25 +9,25 @@ const CartItemSummary = (props) => {
   const { cartContents, cartDispatch } = React.useContext(CartContext);
   const [deleteDialogVisible, setDeleteDialogVisible] = React.useState(false);
   const [newNumInCart, setNewNumInCart] = React.useState(
-    cartContents[props.id].numInCart
+    cartContents[props._id].numInCart
   );
   const total =
     Math.round(
-      parseFloat(cartContents[props.id].price.slice(1)) * newNumInCart * 100
+      parseFloat(cartContents[props._id].price.slice(1)) * newNumInCart * 100
     ) / 100;
   return (
     <Row>
       <ThumbnailWrapper>
         <Thumbnail
-          src={cartContents[props.id].imageSrc}
+          src={cartContents[props._id].imageSrc}
           className="spaced-thumbnail"
         ></Thumbnail>
       </ThumbnailWrapper>
       <Row>
         <Details>
-          <ItemName>{cartContents[props.id].name}</ItemName>
+          <ItemName>{cartContents[props._id].name}</ItemName>
           <PriceMath>
-            {cartContents[props.id].price + " \u00D7"}
+            {cartContents[props._id].price + " \u00D7"}
             <GenericInputField
               type="number"
               name="num-in-cart"
@@ -45,7 +45,7 @@ const CartItemSummary = (props) => {
                   "pendingCartChanges",
                   JSON.stringify({
                     ...JSON.parse(oldPendingCartChanges),
-                    [props.id]: parseInt(ev.target.value) || 0,
+                    [props._id]: parseInt(ev.target.value) || 0,
                   })
                 );
                 console.log(

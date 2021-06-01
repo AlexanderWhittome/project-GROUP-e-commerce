@@ -28,7 +28,26 @@ const ItemDetails = (props) => {
   const [newNumInCart, setNewNumInCart] = React.useState(1);
   const history = useHistory();
   console.log("Cart test", itemId.productId);
-  console.log(`❗ ItemDetails.js:32 'itemdetail' <${typeof itemdetail}>`);
+  // console.log(`❗ ItemDetails.js:32 'itemdetail' <${typeof itemdetail}>`);
+  // console.log(
+  //   `❗ ItemDetails.js:32 'cartContents' <${typeof cartContents}>`,
+  //   cartContents
+  // );
+  // console.log(
+  //   `❗ ItemDetails.js:32 '[newNumInCart,cartContents[itemId.productId]]' <${typeof [
+  //     newNumInCart,
+  //     cartContents[itemId.productId],
+  //   ]}>`,
+  //   [newNumInCart, cartContents[itemId.productId]]
+  // );
+  console.log(`❗ ItemDetails.js:43 'itemdetail.numInStock' <${typeof itemdetail.numInStock}>`,itemdetail.numInStock);
+  const plannedNumInCartExceedsStock =
+    newNumInCart +
+    (cartContents[itemId.productId]
+      ? cartContents[itemId.productId].numInCart
+      : 0) > itemdetail.numInStock
+  console.log(`❗ ItemDetails.js:49 'plannedNumInCartExceedsStock' <${typeof plannedNumInCartExceedsStock}>`,plannedNumInCartExceedsStock);
+
   return (
     <ItemWrapper>
       <ItemName>{itemdetail.name}</ItemName>
@@ -36,6 +55,7 @@ const ItemDetails = (props) => {
       <CompanyInfo value={itemdetail.companyId}></CompanyInfo>
       <ItemPurchase>
         <CartButton
+          disabled={plannedNumInCartExceedsStock}
           onClick={(ev) => {
             cartDispatch({
               type: "add",

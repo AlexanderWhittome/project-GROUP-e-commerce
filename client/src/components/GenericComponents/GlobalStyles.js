@@ -6,6 +6,7 @@ export default createGlobalStyle`
     :root {
       --primary-color: #011627;
       --buttons: #2EC4B6;
+      --buttons-disabled: #82c2bb;
       --secondary-color: #FF9F1C;
       --text: #FDFFFC;
       --misc: #E71D36;  

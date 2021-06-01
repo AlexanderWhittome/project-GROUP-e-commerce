@@ -8,24 +8,26 @@ export const CartContext = React.createContext({
 });
 
 const cartReducer = (state, action) => {
-  console.log(`❗ CartContext.js:6 'state' <${typeof state}>`, state);
+  console.log(`❗ CartContext.js:11 '[state,action]' <${typeof [state,action]}>`,[state,action]);
   switch (action.type) {
     case "add":
       if (action.numInCart === 0) {
         throw new Error(`numInCart cannot be 0 with type: add`);
-      } else if (state[action.itemObject.id]) {
+      } 
+      else if (state[action.itemObject._id]) {
+        console.log("❗❗❗❗❗❗❗❗❗ We are in elseif");
         return {
           ...state,
-          [action.itemObject.id]: {
+          [action.itemObject._id]: {
             ...action.itemObject,
-            numInCart: action.numInCart + state[action.itemObject.id].numInCart,
+            numInCart: action.numInCart + state[action.itemObject._id].numInCart,
           },
         };
       }
-
+      console.log("❗❗❗❗❗❗❗❗❗❗ we are in else");
       return {
         ...state,
-        [action.itemObject.id]: {
+        [action.itemObject._id]: {
           ...action.itemObject,
           numInCart: action.numInCart,
         },
@@ -96,24 +98,24 @@ export const CartContextProvider = ({ children }) => {
   const [cartContents, cartDispatch] = React.useReducer(cartReducer, {
     //notice that cartContents is not an array, unlike items.json
   });
-  React.useEffect(() => {
-    //TODO remove
-    cartDispatch({
-      type: "add",
-      itemObject: {
-        name: "Barska GB12166 Fitness Watch with Heart Rate Monitor",
-        price: "$49.99",
-        id: 6543,
-        body_location: "Wrist",
-        category: "Fitness",
-        imageSrc:
-          "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHB...<REST_OF_IMAGE_ENCODING>",
-        companyId: 19962,
-        numInStock: 9,
-      },
-      numInCart: 7,
-    });
-  },[]);
+  // React.useEffect(() => {
+  //   //TODO remove
+  //   cartDispatch({
+  //     type: "add",
+  //     itemObject: {
+  //       name: "Barska GB12166 Fitness Watch with Heart Rate Monitor",
+  //       price: "$49.99",
+  //       _id: 6543,
+  //       body_location: "Wrist",
+  //       category: "Fitness",
+  //       imageSrc:
+  //         "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHB...<REST_OF_IMAGE_ENCODING>",
+  //       companyId: 19962,
+  //       numInStock: 9,
+  //     },
+  //     numInCart: 7,
+  //   });
+  // }, []);
   React.useEffect(() => {
     console.log("useEffect Triggered");
     console.log(

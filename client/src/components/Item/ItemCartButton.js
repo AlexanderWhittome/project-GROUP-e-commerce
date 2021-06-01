@@ -12,4 +12,7 @@ export const CartButton = styled.button`
   font-size: 15px;
   font-weight: 600;
   width: 15%;
+  &:disabled {
+    background-color:var(--buttons-disabled)
+  }
 `;
