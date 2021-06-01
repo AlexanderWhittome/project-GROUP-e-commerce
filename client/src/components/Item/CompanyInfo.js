@@ -1,21 +1,36 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-const CompanyInfo = () => {
-  // const { companyId } = useParams();
-  const [company, setCompany] = React.useState([]);
-  let sampleCompany = {
-    name: "Barska",
-    url: "http://www.barska.com/",
-    country: "United States",
-    _id: 19962,
+const CompanyInfo = (prop) => {
+  const [company, getCompany] = React.useState({});
+  const [isLoading, setisLoading] = React.useState(true);
+
+  const fetchCompanyInfo = async (compId) => {
+    const res = await fetch(`/api/company/${compId}`);
+    const json = await res.json();
+    console.log(`❗ CompanyInfo.js:11 'json' <${typeof json}>`, json);
+    getCompany(json.data);
+    if (json.data != undefined) {
+      setisLoading(false);
+    }
   };
 
+  React.useEffect(() => {
+    fetchCompanyInfo(prop.value);
+    console.log(`❗ CompanyInfo.js:16 'refetching CompanyInfo'`);
+  }, [prop]);
+
+  console.log(`❗ CompanyInfo.js:20 'company' <${typeof company}>`, company);
+  console.log(`isLoading: ${isLoading}`);
   return (
     <>
-      <CompanyUrl href={sampleCompany.url}>
-        {sampleCompany.name} in {sampleCompany.country}
-      </CompanyUrl>
+      {isLoading ? (
+        <p>Loading Company...</p>
+      ) : (
+        <CompanyUrl href={company.url}>
+          {company.name} in {company.country}
+        </CompanyUrl>
+      )}
     </>
   );
 };
