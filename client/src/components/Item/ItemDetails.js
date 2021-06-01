@@ -46,6 +46,7 @@ const ItemDetails = (props) => {
     (cartContents[itemId.productId]
       ? cartContents[itemId.productId].numInCart
       : 0) > itemdetail.numInStock
+  
   console.log(`❗ ItemDetails.js:49 'plannedNumInCartExceedsStock' <${typeof plannedNumInCartExceedsStock}>`,plannedNumInCartExceedsStock);
 
   return (

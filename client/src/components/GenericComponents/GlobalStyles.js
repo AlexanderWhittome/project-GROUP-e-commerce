@@ -39,6 +39,7 @@ export default createGlobalStyle`
     }
     body {
         line-height: 1;
+        /* color:var(--text); */
     }
     ol, ul {
         list-style: none;
@@ -51,7 +52,6 @@ export default createGlobalStyle`
         content: '';
         content: none;
     }
-
 
     button:hover {
       cursor:pointer;

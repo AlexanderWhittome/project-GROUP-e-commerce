@@ -8,23 +8,25 @@ export const CartContext = React.createContext({
 });
 
 const cartReducer = (state, action) => {
-  console.log(`❗ CartContext.js:11 '[state,action]' <${typeof [state,action]}>`,[state,action]);
+  console.log(
+    `❗ CartContext.js:11 '[state,action]' <${typeof [state, action]}>`,
+    [state, action]
+  );
   switch (action.type) {
     case "add":
       if (action.numInCart === 0) {
         throw new Error(`numInCart cannot be 0 with type: add`);
-      } 
-      else if (state[action.itemObject._id]) {
-        console.log("❗❗❗❗❗❗❗❗❗ We are in elseif");
+      } else if (state[action.itemObject._id]) {
         return {
           ...state,
           [action.itemObject._id]: {
             ...action.itemObject,
-            numInCart: action.numInCart + state[action.itemObject._id].numInCart,
+            numInCart:
+              action.numInCart + state[action.itemObject._id].numInCart,
           },
         };
       }
-      console.log("❗❗❗❗❗❗❗❗❗❗ we are in else");
+
       return {
         ...state,
         [action.itemObject._id]: {
@@ -79,6 +81,13 @@ const cartReducer = (state, action) => {
       }, {});
 
       const upToDateCart = { ...state, ...updatedItems };
+      Object.keys(upToDateCart).forEach((id) => {
+        console.log(`❗ CartContext.js:85 'upToDateCart[id]' <${typeof upToDateCart[id]}>`,upToDateCart[id]);
+        if (upToDateCart[id].numInCart === 0) {
+          delete upToDateCart[id];
+        }
+      });
+
       console.log(
         `❗ CartContext.js:66 'upToDateCart' <${typeof upToDateCart}>`,
         upToDateCart

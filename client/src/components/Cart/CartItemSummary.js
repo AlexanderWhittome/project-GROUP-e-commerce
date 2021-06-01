@@ -11,12 +11,13 @@ const CartItemSummary = (props) => {
   const [newNumInCart, setNewNumInCart] = React.useState(
     cartContents[props._id].numInCart
   );
+  const itemSummary = useRef(null);
   const total =
     Math.round(
       parseFloat(cartContents[props._id].price.slice(1)) * newNumInCart * 100
     ) / 100;
   return (
-    <Row>
+    <Row ref={itemSummary}>
       <ThumbnailWrapper>
         <Thumbnail
           src={cartContents[props._id].imageSrc}
@@ -58,7 +59,7 @@ const CartItemSummary = (props) => {
           </PriceMath>
           <Total total={total}></Total>
         </Details>
-        {/* <DeleteBlock>
+        <DeleteBlock>
           {!deleteDialogVisible && (
             <GenericButton
               onClick={(ev) => setDeleteDialogVisible((state) => !state)}
@@ -82,12 +83,12 @@ const CartItemSummary = (props) => {
                   "pendingCartChanges",
                   JSON.stringify({
                     ...JSON.parse(oldPendingCartChanges),
-                    [props.id]: null,
+                    [props._id]: 0,
                   })
                 );
-                cartContents[props.id].cartDispatch({
-                  type: "commitLocallyStoredChanges",
-                });
+                console.log(`❗ CartItemSummary.js:89 'localStorage' <${typeof localStorage}>`,localStorage);
+                itemSummary.current.style.display = "none";
+                
               }}
             >
               {"\u2713"}
@@ -98,7 +99,7 @@ const CartItemSummary = (props) => {
               {"\u2717"}
             </GenericButton>,
           ]}
-        </DeleteBlock> */}
+        </DeleteBlock>
       </Row>
     </Row>
   );

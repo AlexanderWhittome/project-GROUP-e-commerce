@@ -1,6 +1,7 @@
 import styled from "styled-components";
-
+import GlobalStyles from "./GlobalStyles"
 export const GenericButton = styled.button`
+  color: var(--text);
   position: relative;
   background: transparent;
   border-color: transparent;
