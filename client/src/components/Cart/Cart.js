@@ -13,6 +13,7 @@ const Cart = () => {
   const { cartContents, cartDispatch } = React.useContext(CartContext);
   return (
     <Wrapper>
+      {!Object.keys(cartContents).length && <SomeElements />}
       {Object.keys(cartContents).map((id) => {
         const props = { ...cartContents[id], cartDispatch: cartDispatch };
         return <CartItemSummary {...props} />;
@@ -25,5 +26,8 @@ const Wrapper = styled.div`
   background-color: var(--primary-color);
   color: var(--text);
   padding: 10px;
+  min-height: 100vh;
 `;
+
+const SomeElements = styled.div``;
 export default Cart;

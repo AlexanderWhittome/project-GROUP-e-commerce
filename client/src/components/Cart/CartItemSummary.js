@@ -165,7 +165,7 @@ const TotalDiv = styled.div`
   & span::after {
     content: "";
     position: absolute;
-    background-color: #fea;
+    background-color: #e71d36;
     top: -3px;
     left: -3px;
     color: rgba(0, 0, 0, 0);
