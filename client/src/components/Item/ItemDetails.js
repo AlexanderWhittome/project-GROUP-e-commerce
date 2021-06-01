@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../CartContext";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ItemThumbnail from "./ItemThumbnail";
 import { CartButton } from "./ItemCartButton";
 import styled from "styled-components";
@@ -25,11 +25,9 @@ const ItemDetails = (props) => {
   }, [itemId]);
 
   const { cartContents, cartDispatch } = React.useContext(CartContext);
-
-  // const [newNumInCart, setNewNumInCart] = React.useState(
-  //   cartContents[itemId.productId].numInCart
-  // );
-
+  const [newNumInCart, setNewNumInCart] = React.useState(1);
+  const history = useHistory();
+  console.log("Cart test", itemId.productId);
   console.log(`❗ ItemDetails.js:32 'itemdetail' <${typeof itemdetail}>`);
   return (
     <ItemWrapper>
@@ -42,27 +40,22 @@ const ItemDetails = (props) => {
             cartDispatch({
               type: "add",
               itemObject: itemdetail,
-              numberAddedToCart: 1,
+              numInCart: newNumInCart,
             });
+            history.push("/");
           }}
         >
           Add Cart
         </CartButton>
-        {/* <GenericInputField
+        <GenericInputField
           type="number"
           name="num-in-cart"
           onChange={(ev) => {
+            console.log(`❗ test`, ev.target.value);
             setNewNumInCart(ev.target.value);
           }}
-          onBlur={(ev) => {
-            console.log(
-              `❗ CartItemSummary.js:40 'ev.target.value' <${typeof ev.target
-                .value}>`,
-              ev.target.value
-            );
-          }}
           value={newNumInCart}
-        ></GenericInputField> */}
+        ></GenericInputField>
         <ItemPrice>{itemdetail.price}</ItemPrice>
       </ItemPurchase>
       <ItemPosition>
