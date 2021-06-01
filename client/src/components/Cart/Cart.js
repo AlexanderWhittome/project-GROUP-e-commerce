@@ -6,6 +6,7 @@ import CartItemSummary from "./CartItemSummary";
 import { CartButton } from "../Item/ItemCartButton";
 import { useHistory } from "react-router-dom";
 
+import BlankCart from "./EmptyCart";
 const Cart = () => {
   console.log(
     ` Cart.js:7 'React.useContext(CartContext)' <${typeof React.useContext(
@@ -23,7 +24,7 @@ const Cart = () => {
   const history = useHistory();
   return (
     <Wrapper>
-      {!Object.keys(cartContents).length && <SomeElements />}
+      {!Object.keys(cartContents).length && <BlankCart />}
       {Object.keys(cartContents).map((id) => {
         const props = { ...cartContents[id], cartDispatch: cartDispatch };
         return <CartItemSummary {...props} />;
@@ -58,5 +59,4 @@ const Wrapper = styled.div`
   min-height: 100vh;
 `;
 
-const SomeElements = styled.div``;
 export default Cart;
