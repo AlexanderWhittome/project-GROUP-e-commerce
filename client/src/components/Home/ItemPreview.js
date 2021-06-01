@@ -1,19 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import Thumbnail from "../GenericComponents/Thumbnail";
-import {useHistory} from "react-router-dom";
-const ItemPreview = ({ _id,imageSrc,name,price}) => {
+import { useHistory } from "react-router-dom";
+const ItemPreview = ({ _id, imageSrc, name, price }) => {
   const history = useHistory();
-return (
-
-      <Wrapper onClick={()=>history.push(`/product/${_id}`)}>
-        <Thumbnail src={imageSrc} />
-        <Noverflow>
-          {name}
-        </Noverflow>
-        <p>{price}</p>
-      </Wrapper>
-
+  return (
+    <Wrapper onClick={() => history.push(`/product/${_id}`)}>
+      <Thumbnail src={imageSrc} className="animated" />
+      <Noverflow>{name}</Noverflow>
+      <p>{price}</p>
+    </Wrapper>
   );
 };
 const Wrapper = styled.div`
@@ -23,6 +19,7 @@ const Wrapper = styled.div`
   & > :last-child {
     margin-bottom: 10px;
   }
+  cursor: pointer;
 `;
 
 const Noverflow = styled.div`

@@ -4,7 +4,12 @@ import styled from "styled-components";
 import { CartContext } from "../CartContext";
 import CartItemSummary from "./CartItemSummary";
 const Cart = () => {
-  console.log(`❗ Cart.js:7 'React.useContext(CartContext)' <${typeof React.useContext(CartContext)}>`,React.useContext(CartContext));
+  console.log(
+    `❗ Cart.js:7 'React.useContext(CartContext)' <${typeof React.useContext(
+      CartContext
+    )}>`,
+    React.useContext(CartContext)
+  );
   const { cartContents, cartDispatch } = React.useContext(CartContext);
   return (
     <Wrapper>
@@ -15,5 +20,10 @@ const Cart = () => {
     </Wrapper>
   );
 };
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--primary-color);
+  color: var(--text);
+  padding: 10px;
+`;
 export default Cart;

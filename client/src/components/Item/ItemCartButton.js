@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const CartButton = styled.button`
   position: relative;
-  background: blue;
+  background: var(--buttons);
   border-color: transparent;
   border-radius: 13px 13px 13px 13px;
   color: #fff;

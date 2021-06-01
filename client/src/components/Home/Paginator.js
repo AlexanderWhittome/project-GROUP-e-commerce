@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { useParams, Link } from "react-router-dom";
 
-const Paginator = ({maxPage}) => {
+const Paginator = ({ maxPage }) => {
   const currentPage = parseInt(useParams().pageNum) || 1;
-  const isLastPage = currentPage == maxPage ; //TODO
+  const isLastPage = currentPage == maxPage; //TODO
   const [prevPageURL, nextPageURL] = [
     `${currentPage - 1}`,
-    `${useParams().pageNum ? "" : "page/"}${ currentPage + 1}`,
+    `${useParams().pageNum ? "" : "page/"}${currentPage + 1}`,
   ];
   return (
     <Wrapper>
@@ -33,6 +33,7 @@ const Wrapper = styled.div`
 `;
 
 const PaginationArrow = styled.div`
+  color: var(--text);
   margin: 10px;
 `;
 

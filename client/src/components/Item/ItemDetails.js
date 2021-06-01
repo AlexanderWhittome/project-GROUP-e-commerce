@@ -73,9 +73,15 @@ const ItemDetails = (props) => {
   );
 };
 
-const ItemWrapper = styled.div``;
+const ItemWrapper = styled.div`
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--primary-color);
+  color: var(--text);
+  padding: 15px;
+`;
 
 const ItemName = styled.h1`
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-weight: bolder;
   font-size: 40px;
   margin: 0px;
@@ -84,6 +90,7 @@ const ItemName = styled.h1`
 `;
 
 const ItemPurchase = styled.div`
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   gap: 60px;
   justify-content: center;
@@ -92,15 +99,23 @@ const ItemPurchase = styled.div`
 `;
 
 const ItemPrice = styled.h1`
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   align-self: center;
 `;
 
 const ItemPosition = styled.div`
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   gap: 60px;
 `;
 
-const ItemLoc = styled.h1``;
+const ItemLoc = styled.h1`
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-left: 420px;
+`;
 const ItemCategory = styled.h1``;
 
 export default ItemDetails;

@@ -17,7 +17,12 @@ const CartItemSummary = (props) => {
     ) / 100;
   return (
     <Row>
-      <Thumbnail src={cartContents[props.id].imageSrc}></Thumbnail>
+      <ThumbnailWrapper>
+        <Thumbnail
+          src={cartContents[props.id].imageSrc}
+          className="spaced-thumbnail"
+        ></Thumbnail>
+      </ThumbnailWrapper>
       <Row>
         <Details>
           <ItemName>{cartContents[props.id].name}</ItemName>
@@ -105,11 +110,18 @@ const Row = styled.div`
   width: 100%;
 `;
 
+const ThumbnailWrapper = styled.div`
+  padding: 20px;
+`;
+
 const Details = styled.div`
+  border: 2px solid white;
+  border-width: 0 2px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   width: 75%;
+  padding: 15px;
   & > div {
     padding: 5px;
   }

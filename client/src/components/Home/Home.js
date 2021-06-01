@@ -8,7 +8,7 @@ const Home = ({}) => {
   const [productsArray, setProductsArray] = React.useState([]);
   const [maxPage, setMaxPage] = React.useState(1);
 
-  const fetchProductsArray = async (pageNum=1) => {
+  const fetchProductsArray = async (pageNum = 1) => {
     const res = await fetch(`/api/product?pageNumber=${pageNum}`);
     const json = await res.json();
     setProductsArray(json.data.products);
@@ -19,37 +19,42 @@ const Home = ({}) => {
   };
 
   React.useEffect(() => {
-    fetchProductsArray(params.pageNum)
+    fetchProductsArray(params.pageNum);
   }, [params]);
 
   return (
     <>
       <Wrapper>
-        <p>Page number: {params.pageNum}</p>
-        <SubWrapper numberPerRow={4} >
+        <SubWrapper numberPerRow={4}>
           {productsArray.map((item) => {
-            return <ItemPreview {...item}/>;
+            return <ItemPreview {...item} />;
           })}
         </SubWrapper>
-        <Paginator maxPage={maxPage} ></Paginator>
+        <Paginator maxPage={maxPage}></Paginator>
       </Wrapper>
     </>
   );
 };
 const SubWrapper = styled.div`
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-direction: row;
-  justify-content:center;
+  justify-content: center;
   flex-wrap: wrap;
-  padding:5px; //bobby
+  padding: 5px; //bobby
   & > div {
-    border:5px rgba(0,0,0,0) solid; //bobby
+    border: 5px rgba(0, 0, 0, 0) solid; //bobby
     width: ${(props) => {
-    return 100 / props.numberPerRow.toString() + "%";
-  }};
+      return 100 / props.numberPerRow.toString() + "%";
+    }};
   }
 `;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--primary-color);
+  color: var(--text);
+  padding: 20px;
+`;
 
 export default Home;

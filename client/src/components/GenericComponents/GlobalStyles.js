@@ -61,8 +61,6 @@ export default createGlobalStyle`
     a:visited {
       color:inherit;
     }
-    * {
-      border: 1px #f80 dashed;
-    }
+  
 
 `;

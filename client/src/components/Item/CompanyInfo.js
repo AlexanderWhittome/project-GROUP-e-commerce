@@ -36,9 +36,11 @@ const CompanyInfo = (prop) => {
 };
 
 const CompanyUrl = styled.a`
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-style: italic;
   font-weight: bold;
   font-size: 15px;
+  color: var(--text);
 `;
 
 export default CompanyInfo;
