@@ -11,14 +11,25 @@ const cartReducer = (state, action) => {
   console.log(`❗ CartContext.js:6 'state' <${typeof state}>`, state);
   switch (action.type) {
     case "add":
-      if (state[action.itemObject.id]) {
-        throw new Error(
-          `${action.itemObject.id} is already in cartContents. Use "type: update" instead.`
-        );
-      } else if (state[action.itemsObject.numInCart] === 0) {
+      if (action.numInCart === 0) {
         throw new Error(`numInCart cannot be 0 with type: add`);
+      } else if (state[action.itemObject.id]) {
+        return {
+          ...state,
+          [action.itemObject.id]: {
+            ...action.itemObject,
+            numInCart: action.numInCart + state[action.itemObject.id].numInCart,
+          },
+        };
       }
-      return { ...state, [action.itemObject.id]: action.itemObject };
+
+      return {
+        ...state,
+        [action.itemObject.id]: {
+          ...action.itemObject,
+          numInCart: action.numInCart,
+        },
+      };
 
     case "update":
       //undefined.numInCart already throws an error
@@ -70,7 +81,7 @@ const cartReducer = (state, action) => {
         `❗ CartContext.js:66 'upToDateCart' <${typeof upToDateCart}>`,
         upToDateCart
       );
-      
+
       console.log("done");
       return receivedOrderToFinalizePurchase ? {} : upToDateCart;
 
@@ -84,19 +95,25 @@ export const CartContextProvider = ({ children }) => {
 
   const [cartContents, cartDispatch] = React.useReducer(cartReducer, {
     //notice that cartContents is not an array, unlike items.json
-    6543: {
-      name: "Barska GB12166 Fitness Watch with Heart Rate Monitor",
-      price: "$49.99",
-      id: 6543,
-      body_location: "Wrist",
-      category: "Fitness",
-      imageSrc:
-        "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHB...<REST_OF_IMAGE_ENCODING>",
-      companyId: 19962,
-      numInStock: 9,
-      numInCart: 5,
-    },
   });
+  React.useEffect(() => {
+    //TODO remove
+    cartDispatch({
+      type: "add",
+      itemObject: {
+        name: "Barska GB12166 Fitness Watch with Heart Rate Monitor",
+        price: "$49.99",
+        id: 6543,
+        body_location: "Wrist",
+        category: "Fitness",
+        imageSrc:
+          "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHB...<REST_OF_IMAGE_ENCODING>",
+        companyId: 19962,
+        numInStock: 9,
+      },
+      numInCart: 7,
+    });
+  },[]);
   React.useEffect(() => {
     console.log("useEffect Triggered");
     console.log(
@@ -108,7 +125,6 @@ export const CartContextProvider = ({ children }) => {
       //cart should never change without handling pending changes, so this should be safe.
 
       cartDispatch({ type: "commitLocallyStoredChanges" });
-
     }
   }, [location]);
   React.useEffect(() => {
@@ -118,8 +134,6 @@ export const CartContextProvider = ({ children }) => {
       localStorage.removeItem("pendingCartChanges");
     }
   }, [cartContents]);
-
-
 
   console.log(
     `❗ CartContext.js:60 'cartContents' <${typeof cartContents}>`,
