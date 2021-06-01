@@ -3,14 +3,19 @@ import { createContext } from "react";
 import styled from "styled-components";
 import { CartContext } from "../CartContext";
 import CartItemSummary from "./CartItemSummary";
+import { CartButton } from "../Item/ItemCartButton";
+import {useHistory} from "react-router-dom";
+
 const Cart = () => {
+
   console.log(
     `❗ Cart.js:7 'React.useContext(CartContext)' <${typeof React.useContext(
       CartContext
     )}>`,
     React.useContext(CartContext)
   );
-  const { cartContents, cartDispatch } = React.useContext(CartContext);
+  const { cartContents, cartDispatch, setPurchased } = React.useContext(CartContext);
+  const history = useHistory();
   return (
     <Wrapper>
       {!Object.keys(cartContents).length && <SomeElements />}
@@ -18,10 +23,21 @@ const Cart = () => {
         const props = { ...cartContents[id], cartDispatch: cartDispatch };
         return <CartItemSummary {...props} />;
       })}
+      <CartButton onClick={(ev)=>{
+        ev.preventDefault();
+        cartDispatch({type:"commitLocallyStoredChanges"})
+        setPurchased(true);
+        localStorage.removeItem("pendingCartChanges")
+        history.push("/");
+      }}>Confirm Purchase</CartButton>
     </Wrapper>
   );
 };
 const Wrapper = styled.div`
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--primary-color);
   color: var(--text);

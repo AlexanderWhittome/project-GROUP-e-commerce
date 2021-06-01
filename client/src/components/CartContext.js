@@ -60,9 +60,7 @@ const cartReducer = (state, action) => {
       }
     case "commitLocallyStoredChanges":
       console.log(action.type);
-      const receivedOrderToFinalizePurchase = JSON.parse(
-        localStorage.getItem("finalizePurchase")
-      );
+
       const changes = JSON.parse(localStorage.getItem("pendingCartChanges"));
       if (!changes) {
         console.log("No changes to commit");
@@ -94,15 +92,19 @@ const cartReducer = (state, action) => {
       );
 
       console.log("done");
-      return receivedOrderToFinalizePurchase ? {} : upToDateCart;
+      return upToDateCart;
+    case "purchase":
+
 
     default:
       throw new Error(`${action.type} is not a valid type property`);
   }
 };
 
+
 export const CartContextProvider = ({ children }) => {
   const location = useLocation();
+  const [purchased,setPurchased] = React.useState(false);
 
   const [cartContents, cartDispatch] = React.useReducer(cartReducer, {
     //notice that cartContents is not an array, unlike items.json
@@ -133,9 +135,12 @@ export const CartContextProvider = ({ children }) => {
     );
     const pendingCartChanges = localStorage.getItem("pendingCartChanges");
     if (pendingCartChanges) {
-      //cart should never change without handling pending changes, so this should be safe.
-
+      //cart should never change without handling pending changes, so this should be safe
       cartDispatch({ type: "commitLocallyStoredChanges" });
+      
+    }
+    if (purchased) {
+      cartDispatch({type:"finalizePurchase"})
     }
   }, [location]);
   React.useEffect(() => {
@@ -152,7 +157,7 @@ export const CartContextProvider = ({ children }) => {
   );
   return (
     <CartContext.Provider
-      value={{ cartContents: cartContents, cartDispatch: cartDispatch }}
+      value={{ cartContents: cartContents, cartDispatch: cartDispatch, setPurchased:setPurchased }}
     >
       {children}
     </CartContext.Provider>
