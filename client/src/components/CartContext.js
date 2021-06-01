@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
+
 export const CartContext = React.createContext({
   cartContents: {},
   cartDispatch: null,
@@ -16,7 +18,7 @@ const cartReducer = (state, action) => {
       } else if (state[action.itemsObject.numInCart] === 0) {
         throw new Error(`numInCart cannot be 0 with type: add`);
       }
-      return {...state, [action.itemObject.id]:action.itemObject};
+      return { ...state, [action.itemObject.id]: action.itemObject };
 
     case "update":
       //undefined.numInCart already throws an error
@@ -24,21 +26,62 @@ const cartReducer = (state, action) => {
         throw new Error(
           `${action.newNumInCart} is not a valid newNumInCart value`
         );
-      } else if (action.newNumInCart==0) {
-        const newState = {...state};
+      } else if (action.newNumInCart == 0) {
+        const newState = { ...state };
         delete newState[action.itemId];
-        console.log(`❗ CartContext.js:31 'newState' <${typeof newState}>`,newState);
+        console.log(
+          `❗ CartContext.js:31 'newState' <${typeof newState}>`,
+          newState
+        );
         return newState;
       } else {
-        return {...state, [action.itemId]:{...state[action.itemId],numInCart: action.newNumInCart}}
-
+        return {
+          ...state,
+          [action.itemId]: {
+            ...state[action.itemId],
+            numInCart: action.newNumInCart,
+          },
+        };
       }
+    case "commitLocallyStoredChanges":
+      console.log(action.type);
+      const receivedOrderToFinalizePurchase = JSON.parse(
+        localStorage.getItem("finalizePurchase")
+      );
+      const changes = JSON.parse(localStorage.getItem("pendingCartChanges"));
+      if (!changes) {
+        console.log("No changes to commit");
+        return state;
+      }
+      const changedIds = Object.keys(changes);
+      console.log(
+        `❗ CartContext.js:53 'changedIds' <${typeof changedIds}>`,
+        changedIds
+      );
+      const updatedItems = changedIds.reduce((accumulator, nextId) => {
+        return {
+          ...accumulator,
+          [nextId]: { ...state[nextId], numInCart: changes[nextId] },
+        };
+      }, {});
+
+      const upToDateCart = { ...state, ...updatedItems };
+      console.log(
+        `❗ CartContext.js:66 'upToDateCart' <${typeof upToDateCart}>`,
+        upToDateCart
+      );
+      
+      console.log("done");
+      return receivedOrderToFinalizePurchase ? {} : upToDateCart;
 
     default:
       throw new Error(`${action.type} is not a valid type property`);
   }
 };
+
 export const CartContextProvider = ({ children }) => {
+  const location = useLocation();
+
   const [cartContents, cartDispatch] = React.useReducer(cartReducer, {
     //notice that cartContents is not an array, unlike items.json
     6543: {
@@ -54,7 +97,34 @@ export const CartContextProvider = ({ children }) => {
       numInCart: 5,
     },
   });
-  console.log(`❗ CartContext.js:60 'cartContents' <${typeof cartContents}>`,cartContents);
+  React.useEffect(() => {
+    console.log("useEffect Triggered");
+    console.log(
+      `❗ CartContext.js:97 'location' <${typeof location}>`,
+      location
+    );
+    const pendingCartChanges = localStorage.getItem("pendingCartChanges");
+    if (pendingCartChanges) {
+      //cart should never change without handling pending changes, so this should be safe.
+
+      cartDispatch({ type: "commitLocallyStoredChanges" });
+
+    }
+  }, [location]);
+  React.useEffect(() => {
+    console.log("useEffect 2 Triggered");
+    const pendingCartChanges = localStorage.getItem("pendingCartChanges");
+    if (pendingCartChanges) {
+      localStorage.removeItem("pendingCartChanges");
+    }
+  }, [cartContents]);
+
+
+
+  console.log(
+    `❗ CartContext.js:60 'cartContents' <${typeof cartContents}>`,
+    cartContents
+  );
   return (
     <CartContext.Provider
       value={{ cartContents: cartContents, cartDispatch: cartDispatch }}

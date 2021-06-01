@@ -27,18 +27,33 @@ const CartItemSummary = (props) => {
               type="number"
               name="num-in-cart"
               onChange={(ev) => {
-
                 setNewNumInCart(ev.target.value);
-              }
-            }
-            
-            onBlur={(ev)=>{console.log(`❗ CartItemSummary.js:40 'ev.target.value' <${typeof ev.target.value}>`,ev.target.value);}}
+                const oldPendingCartChanges =
+                  localStorage.getItem("pendingCartChanges");
+                !oldPendingCartChanges &&
+                  localStorage.setItem(
+                    "pendingCartChanges",
+                    JSON.stringify({})
+                  );
+
+                localStorage.setItem(
+                  "pendingCartChanges",
+                  JSON.stringify({
+                    ...JSON.parse(oldPendingCartChanges),
+                    [props.id]: parseInt(ev.target.value) || 0,
+                  })
+                );
+                console.log(
+                  `❗ CartItemSummary.js:41 'localStorage' <${typeof localStorage}>`,
+                  localStorage
+                );
+              }}
               value={newNumInCart}
             ></GenericInputField>
           </PriceMath>
           <Total total={total}></Total>
         </Details>
-        <DeleteBlock>
+        {/* <DeleteBlock>
           {!deleteDialogVisible && (
             <GenericButton
               onClick={(ev) => setDeleteDialogVisible((state) => !state)}
@@ -49,10 +64,24 @@ const CartItemSummary = (props) => {
           {deleteDialogVisible && [
             <GenericButton
               onClick={(ev) => {
+
+                const oldPendingCartChanges =
+                  localStorage.getItem("pendingCartChanges");
+                !oldPendingCartChanges &&
+                  localStorage.setItem(
+                    "pendingCartChanges",
+                    JSON.stringify({})
+                  );
+
+                localStorage.setItem(
+                  "pendingCartChanges",
+                  JSON.stringify({
+                    ...JSON.parse(oldPendingCartChanges),
+                    [props.id]: null,
+                  })
+                );
                 cartContents[props.id].cartDispatch({
-                  type: "update",
-                  itemId: cartContents[props.id].id,
-                  newNumInCart: 0,
+                  type: "commitLocallyStoredChanges",
                 });
               }}
             >
@@ -64,7 +93,7 @@ const CartItemSummary = (props) => {
               {"\u2717"}
             </GenericButton>,
           ]}
-        </DeleteBlock>
+        </DeleteBlock> */}
       </Row>
     </Row>
   );
