@@ -9,7 +9,7 @@ const CompanyInfo = (prop) => {
   const fetchCompanyInfo = async (compId) => {
     const res = await fetch(`/api/company/${compId}`);
     const json = await res.json();
-    // console.log(`❗ CompanyInfo.js:11 'json' <${typeof json}>`, json);
+    // console.log(` CompanyInfo.js:11 'json' <${typeof json}>`, json);
     getCompany(json.data);
     if (json.data != undefined) {
       setisLoading(false);
@@ -18,10 +18,10 @@ const CompanyInfo = (prop) => {
 
   React.useEffect(() => {
     fetchCompanyInfo(prop.value);
-    // console.log(`❗ CompanyInfo.js:16 'refetching CompanyInfo'`);
+    // console.log(` CompanyInfo.js:16 'refetching CompanyInfo'`);
   }, [prop]);
 
-  // console.log(`❗ CompanyInfo.js:20 'company' <${typeof company}>`, company);
+  // console.log(` CompanyInfo.js:20 'company' <${typeof company}>`, company);
   console.log(`isLoading: ${isLoading}`);
   return (
     <>

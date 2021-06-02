@@ -9,7 +9,7 @@ import {useHistory} from "react-router-dom";
 const Cart = () => {
 
   console.log(
-    `❗ Cart.js:7 'React.useContext(CartContext)' <${typeof React.useContext(
+    ` Cart.js:7 'React.useContext(CartContext)' <${typeof React.useContext(
       CartContext
     )}>`,
     React.useContext(CartContext)

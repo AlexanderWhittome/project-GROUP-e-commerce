@@ -4,11 +4,13 @@ import styled from "styled-components";
 import ItemPreview from "./ItemPreview";
 import Paginator from "./Paginator";
 import CartFeedback from "../GenericComponents/CartFeedback";
+import {CartContext} from "../CartContext"
 
 const Home = ({}) => {
   const params = useParams();
   const [productsArray, setProductsArray] = React.useState([]);
   const [maxPage, setMaxPage] = React.useState(1);
+  const {feedback, feedBackCountDown} = React.useContext(CartContext)
 
   const fetchProductsArray = async (pageNum = 1) => {
     const res = await fetch(`/api/product?pageNumber=${pageNum}`);
@@ -23,16 +25,15 @@ const Home = ({}) => {
   React.useEffect(() => {
     fetchProductsArray(params.pageNum);
   }, [params]);
-  const feedbackStorage = localStorage.getItem("feedback");
-  console.log("test storage", localStorage.getItem("feedback"));
-  localStorage.removeItem("feedback");
-  console.log("test remove storage", localStorage.getItem("feedback"));
+
+  console.log(`❗ Home.js:29 'feedback' <${typeof feedback}>`,feedback);
+  console.log(`❗ Home.js:30 'feedBackCountDown' <${typeof feedBackCountDown}>`,feedBackCountDown);
 
   return (
     <>
       <Wrapper>
-        {feedbackStorage && (
-          <CartFeedback id="feedback">{`Added Item `}</CartFeedback>
+        {!!feedBackCountDown && (
+          <CartFeedback id="feedback">{feedback}</CartFeedback>
         )}
         <SubWrapper numberPerRow={4}>
           {productsArray.map((item) => {

@@ -129,32 +129,20 @@ const cartReducer = (state, action) => {
 export const CartContextProvider = ({ children }) => {
   const location = useLocation();
   const [purchased, setPurchased] = React.useState(false);
+  const [feedback, setFeedback] = React.useState(null);
+  const [feedBackCountDown, setFeedBackCountDown] = React.useState(0);
+  const [cartContents, cartDispatch] = React.useReducer(cartReducer, {});
 
-  const [cartContents, cartDispatch] = React.useReducer(cartReducer, {
-    //notice that cartContents is not an array, unlike items.json
-  });
-  // React.useEffect(() => {
-  //   //TODO remove
-  //   cartDispatch({
-  //     type: "add",
-  //     itemObject: {
-  //       name: "Barska GB12166 Fitness Watch with Heart Rate Monitor",
-  //       price: "$49.99",
-  //       _id: 6543,
-  //       body_location: "Wrist",
-  //       category: "Fitness",
-  //       imageSrc:
-  //         "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHB...<REST_OF_IMAGE_ENCODING>",
-  //       companyId: 19962,
-  //       numInStock: 9,
-  //     },
-  //     numInCart: 7,
-  //   });
-  // }, []);
   React.useEffect(() => {
+    setFeedBackCountDown((state) => {
+      const output = (state - 1 < 0) ? 0 : (state - 1) ;
+      console.log(`❗ CartContext.js:139 'output' <${typeof output}>`,output);
+      return output;
+    });
+
     console.log("useEffect Triggered");
     console.log(
-      `❗ CartContext.js:97 'location' <${typeof location}>`,
+      ` CartContext.js:97 'location' <${typeof location}>`,
       location
     );
     const pendingCartChanges = localStorage.getItem("pendingCartChanges");
@@ -184,6 +172,10 @@ export const CartContextProvider = ({ children }) => {
         cartContents: cartContents,
         cartDispatch: cartDispatch,
         setPurchased: setPurchased,
+        feedback: feedback,
+        setFeedback: setFeedback,
+        feedBackCountDown:feedBackCountDown,
+        setFeedBackCountDown: setFeedBackCountDown
       }}
     >
       {children}

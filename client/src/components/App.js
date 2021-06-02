@@ -9,6 +9,7 @@ import Home from "./Home/Home";
 import SiteHeader from "./SiteHeader";
 import ItemDetails from "./Item/ItemDetails";
 function App() {
+
   return (
     <>
       <CartContextProvider>

@@ -24,7 +24,7 @@ const ItemDetails = (props) => {
     console.log(`❗ ItemDetails.js:29 'refetching itemdetail'`);
   }, [itemId]);
 
-  const { cartContents, cartDispatch } = React.useContext(CartContext);
+  const { cartContents, cartDispatch, setFeedback, setFeedBackCountDown } = React.useContext(CartContext);
   const [newNumInCart, setNewNumInCart] = React.useState(1);
   const history = useHistory();
   console.log("Cart test", itemId.productId);
@@ -50,7 +50,7 @@ const ItemDetails = (props) => {
     itemdetail.numInStock;
 
   console.log(
-    `❗ ItemDetails.js:49 'plannedNumInCartExceedsStock' <${typeof plannedNumInCartExceedsStock}>`,
+    ` ItemDetails.js:49 'plannedNumInCartExceedsStock' <${typeof plannedNumInCartExceedsStock}>`,
     plannedNumInCartExceedsStock
   );
 
@@ -69,9 +69,9 @@ const ItemDetails = (props) => {
               numInCart: newNumInCart,
             });
 
-            const feedback = "sample";
-            localStorage.setItem("feedback", JSON.stringify(feedback));
-            console.log("check itemdetail storgae", localStorage);
+            const feedbackStr = `Added ${newNumInCart} x ${itemdetail.name} to your cart`;
+            setFeedback(feedbackStr);
+            setFeedBackCountDown(2);
             history.push("/");
           }}
         >
@@ -82,7 +82,7 @@ const ItemDetails = (props) => {
           type="number"
           name="num-in-cart"
           onChange={(ev) => {
-            console.log(`❗ test`, ev.target.value);
+            console.log(` test`, ev.target.value);
             setNewNumInCart(parseInt(ev.target.value));
           }}
           value={newNumInCart}
