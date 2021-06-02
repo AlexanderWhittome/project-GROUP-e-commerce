@@ -24,7 +24,8 @@ const ItemDetails = (props) => {
     console.log(`❗ ItemDetails.js:29 'refetching itemdetail'`);
   }, [itemId]);
 
-  const { cartContents, cartDispatch, setFeedback, setFeedBackCountDown } = React.useContext(CartContext);
+  const { cartContents, cartDispatch, setFeedback, setFeedBackCountDown } =
+    React.useContext(CartContext);
   const [newNumInCart, setNewNumInCart] = React.useState(1);
   const history = useHistory();
   console.log("Cart test", itemId.productId);
@@ -40,8 +41,14 @@ const ItemDetails = (props) => {
   //   ]}>`,
   //   [newNumInCart, cartContents[itemId.productId]]
   // );
-  console.log(`❗ ItemDetails.js:43 'itemdetail.numInStock' <${typeof itemdetail.numInStock}>`,itemdetail.numInStock);
-  console.log(`❗ ItemDetails.js:44 'newNumInCart' <${typeof newNumInCart}>`,newNumInCart);
+  console.log(
+    `❗ ItemDetails.js:43 'itemdetail.numInStock' <${typeof itemdetail.numInStock}>`,
+    itemdetail.numInStock
+  );
+  console.log(
+    `❗ ItemDetails.js:44 'newNumInCart' <${typeof newNumInCart}>`,
+    newNumInCart
+  );
   const plannedNumInCartExceedsStock =
     newNumInCart +
       (cartContents[itemId.productId]
@@ -58,10 +65,22 @@ const ItemDetails = (props) => {
     <ItemWrapper>
       <ItemName>{itemdetail.name}</ItemName>
       <ItemThumbnail src={itemdetail.imageSrc}></ItemThumbnail>
-      <CompanyInfo value={itemdetail.companyId}></CompanyInfo>
+      <ItemPosition>
+        <CompanyInfo value={itemdetail.companyId}></CompanyInfo>
+        <ItemInfoWrapper>
+          <ItemLoc>
+            <ItemInfo>Body Location:</ItemInfo> {itemdetail.body_location}
+          </ItemLoc>
+        </ItemInfoWrapper>
+        <ItemInfoWrapper>
+          <ItemCategory>
+            <ItemInfo>Category:</ItemInfo> {itemdetail.category}
+          </ItemCategory>
+        </ItemInfoWrapper>
+      </ItemPosition>
       <ItemPurchase>
         <CartButton
-          disabled={plannedNumInCartExceedsStock || newNumInCart==0}
+          disabled={plannedNumInCartExceedsStock || newNumInCart == 0}
           onClick={(ev) => {
             cartDispatch({
               type: "add",
@@ -75,8 +94,11 @@ const ItemDetails = (props) => {
             history.push("/");
           }}
         >
-          {itemdetail.numInStock ? 
-          <>Add to Cart - max {itemdetail.numInStock}</> : <>Out of Stock</>}
+          {itemdetail.numInStock ? (
+            <>Add to Cart - max {itemdetail.numInStock}</>
+          ) : (
+            <>Out of Stock</>
+          )}
         </CartButton>
         <GenericInputField
           type="number"
@@ -87,12 +109,8 @@ const ItemDetails = (props) => {
           }}
           value={newNumInCart}
         ></GenericInputField>
-        <ItemPrice>{itemdetail.price}</ItemPrice>
+        <ItemPrice>Price: {itemdetail.price}</ItemPrice>
       </ItemPurchase>
-      <ItemPosition>
-        <ItemLoc>{itemdetail.body_location}</ItemLoc>
-        <ItemCategory>{itemdetail.category}</ItemCategory>
-      </ItemPosition>
     </ItemWrapper>
   );
 };
@@ -130,16 +148,32 @@ const ItemPrice = styled.h1`
 const ItemPosition = styled.div`
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
+  flex-direction: row;
+  justify-content: center;
   gap: 60px;
+  margin-top: 20px;
+`;
+const ItemInfo = styled.p`
+  margin-right: 5px;
+  color: #000000;
+`;
+const ItemInfoWrapper = styled.div`
+  display: flex;
+  background-color: #ffbf66;
+  border: 1px var(--secondary-color) solid;
+  color: var(--misc);
+  border-radius: 999px;
+  padding: 4px;
 `;
 
 const ItemLoc = styled.h1`
+  display: relative;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  margin-left: 420px;
+  text-align: center;
 `;
-const ItemCategory = styled.h1``;
+const ItemCategory = styled.h1`
+  display: relative;
+  text-align: center;
+`;
 
 export default ItemDetails;

@@ -28,15 +28,23 @@ const CompanyInfo = (prop) => {
       {isLoading ? (
         <p>Loading Company...</p>
       ) : (
+        company &&
         !!Object.keys(company).length && (
-          <CompanyUrl href={company.url}>
-            {company.name} in {company.country}
-          </CompanyUrl>
+          <CompanyWrappper>
+            <CompanyUrl href={company.url}>{company.name}</CompanyUrl>
+            <CompanyText>in {company.country}</CompanyText>
+          </CompanyWrappper>
         )
       )}
     </>
   );
 };
+
+const CompanyWrappper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 
 const CompanyUrl = styled.a`
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -44,6 +52,16 @@ const CompanyUrl = styled.a`
   font-weight: bold;
   font-size: 15px;
   color: var(--text);
+  text-decoration: underline;
+`;
+
+const CompanyText = styled.p`
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 15px;
+  color: var(--text);
+  padding-left: 5px;
 `;
 
 export default CompanyInfo;
