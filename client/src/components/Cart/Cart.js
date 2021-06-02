@@ -35,10 +35,9 @@ const Cart = () => {
           setPurchased(true);
           localStorage.removeItem("pendingCartChanges");
 
-          const feedbackPurchaseStr = `Cart Purchased`;
+          const feedbackPurchaseStr = `Purchased all items in cart. Thank you for shopping at Budget Alibaba!`;
           setFeedback(feedbackPurchaseStr);
           setFeedBackCountDown(2);
-
           history.push("/");
         }}
       >
