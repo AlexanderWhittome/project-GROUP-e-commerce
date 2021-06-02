@@ -70,7 +70,6 @@ const CartItemSummary = (props) => {
           {deleteDialogVisible && [
             <GenericButton
               onClick={(ev) => {
-
                 const oldPendingCartChanges =
                   localStorage.getItem("pendingCartChanges");
                 !oldPendingCartChanges &&
@@ -86,9 +85,11 @@ const CartItemSummary = (props) => {
                     [props._id]: 0,
                   })
                 );
-                console.log(`❗ CartItemSummary.js:89 'localStorage' <${typeof localStorage}>`,localStorage);
+                console.log(
+                  `❗ CartItemSummary.js:89 'localStorage' <${typeof localStorage}>`,
+                  localStorage
+                );
                 itemSummary.current.style.display = "none";
-                
               }}
             >
               {"\u2713"}
