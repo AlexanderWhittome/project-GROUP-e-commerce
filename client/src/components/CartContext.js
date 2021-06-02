@@ -13,6 +13,27 @@ const cartReducer = (state, action) => {
     [state, action]
   );
   switch (action.type) {
+    case "finalizePurchase":
+      Object.keys(state).forEach((key) => {
+        const options = {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...state[key],
+            numInStock: state[key].numInStock - state[key].numInCart,
+          }),
+        };
+        fetch(`/api/product/${state[key]._id}`, options).then((req, res) => {
+          console.log(
+            `❗ CartContext.js:23 '[req,res]' <${typeof [req, res]}>`,
+            [req, res]
+          );
+        });
+      });
+      return {};
+
     case "add":
       if (action.numInCart === 0) {
         throw new Error(`numInCart cannot be 0 with type: add`);
@@ -80,7 +101,12 @@ const cartReducer = (state, action) => {
 
       const upToDateCart = { ...state, ...updatedItems };
       Object.keys(upToDateCart).forEach((id) => {
-        console.log(`❗ CartContext.js:85 'upToDateCart[id]' <${typeof upToDateCart[id]}>`,upToDateCart[id]);
+        console.log(
+          `❗ CartContext.js:85 'upToDateCart[id]' <${typeof upToDateCart[
+            id
+          ]}>`,
+          upToDateCart[id]
+        );
         if (upToDateCart[id].numInCart === 0) {
           delete upToDateCart[id];
         }
@@ -93,18 +119,16 @@ const cartReducer = (state, action) => {
 
       console.log("done");
       return upToDateCart;
-    case "purchase":
-
+      break;
 
     default:
       throw new Error(`${action.type} is not a valid type property`);
   }
 };
 
-
 export const CartContextProvider = ({ children }) => {
   const location = useLocation();
-  const [purchased,setPurchased] = React.useState(false);
+  const [purchased, setPurchased] = React.useState(false);
 
   const [cartContents, cartDispatch] = React.useReducer(cartReducer, {
     //notice that cartContents is not an array, unlike items.json
@@ -137,10 +161,9 @@ export const CartContextProvider = ({ children }) => {
     if (pendingCartChanges) {
       //cart should never change without handling pending changes, so this should be safe
       cartDispatch({ type: "commitLocallyStoredChanges" });
-      
     }
     if (purchased) {
-      cartDispatch({type:"finalizePurchase"})
+      cartDispatch({ type: "finalizePurchase" });
     }
   }, [location]);
   React.useEffect(() => {
@@ -157,7 +180,11 @@ export const CartContextProvider = ({ children }) => {
   );
   return (
     <CartContext.Provider
-      value={{ cartContents: cartContents, cartDispatch: cartDispatch, setPurchased:setPurchased }}
+      value={{
+        cartContents: cartContents,
+        cartDispatch: cartDispatch,
+        setPurchased: setPurchased,
+      }}
     >
       {children}
     </CartContext.Provider>

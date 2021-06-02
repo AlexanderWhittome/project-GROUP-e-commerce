@@ -19,7 +19,7 @@ const getProducts = (req, res) => {
     sendResponse(res, 200, products);
   }
 
-  console.log(pageNumber, "asdasdasd");
+  // console.log(pageNumber, "asdasdasd");
 };
 
 const getSingleProduct = (req, res) => {
@@ -42,9 +42,12 @@ const getSingleCompany = (req, res) => {
 const updateProductById = (req, res) => {
   const product = req.body;
   const { id } = req.params;
-
+  console.log(product);
   if (id != product._id) {
-    //todo: make error
+    console.log(
+      `❗ Handlers.js:47 '[id,product._id]' <${typeof [id, product._id]}>`,
+      [id, product._id]
+    );
     return;
   }
 

@@ -40,10 +40,8 @@ const ItemDetails = (props) => {
   //   ]}>`,
   //   [newNumInCart, cartContents[itemId.productId]]
   // );
-  console.log(
-    `❗ ItemDetails.js:43 'itemdetail.numInStock' <${typeof itemdetail.numInStock}>`,
-    itemdetail.numInStock
-  );
+  console.log(`❗ ItemDetails.js:43 'itemdetail.numInStock' <${typeof itemdetail.numInStock}>`,itemdetail.numInStock);
+  console.log(`❗ ItemDetails.js:44 'newNumInCart' <${typeof newNumInCart}>`,newNumInCart);
   const plannedNumInCartExceedsStock =
     newNumInCart +
       (cartContents[itemId.productId]
@@ -63,7 +61,7 @@ const ItemDetails = (props) => {
       <CompanyInfo value={itemdetail.companyId}></CompanyInfo>
       <ItemPurchase>
         <CartButton
-          disabled={plannedNumInCartExceedsStock}
+          disabled={plannedNumInCartExceedsStock || newNumInCart==0}
           onClick={(ev) => {
             cartDispatch({
               type: "add",
@@ -77,14 +75,15 @@ const ItemDetails = (props) => {
             history.push("/");
           }}
         >
-          Add Cart
+          {itemdetail.numInStock ? 
+          <>Add to Cart - max {itemdetail.numInStock}</> : <>Out of Stock</>}
         </CartButton>
         <GenericInputField
           type="number"
           name="num-in-cart"
           onChange={(ev) => {
             console.log(`❗ test`, ev.target.value);
-            setNewNumInCart(ev.target.value);
+            setNewNumInCart(parseInt(ev.target.value));
           }}
           value={newNumInCart}
         ></GenericInputField>
