@@ -152,6 +152,7 @@ export const CartContextProvider = ({ children }) => {
     }
     if (purchased) {
       cartDispatch({ type: "finalizePurchase" });
+      setPurchased(false)
     }
   }, [location]);
   React.useEffect(() => {

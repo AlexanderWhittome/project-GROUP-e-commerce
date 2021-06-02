@@ -26,8 +26,8 @@ const Home = ({}) => {
     fetchProductsArray(params.pageNum);
   }, [params]);
 
-  console.log(`❗ Home.js:29 'feedback' <${typeof feedback}>`,feedback);
-  console.log(`❗ Home.js:30 'feedBackCountDown' <${typeof feedBackCountDown}>`,feedBackCountDown);
+  // console.log(`❗ Home.js:29 'feedback' <${typeof feedback}>`,feedback);
+  // console.log(`❗ Home.js:30 'feedBackCountDown' <${typeof feedBackCountDown}>`,feedBackCountDown);
 
   return (
     <>

@@ -22,7 +22,7 @@ const CompanyInfo = (prop) => {
   }, [prop]);
 
   // console.log(` CompanyInfo.js:20 'company' <${typeof company}>`, company);
-  console.log(`isLoading: ${isLoading}`);
+  // console.log(`isLoading: ${isLoading}`);
   return (
     <>
       {isLoading ? (
