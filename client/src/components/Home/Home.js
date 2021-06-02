@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import ItemPreview from "./ItemPreview";
 import Paginator from "./Paginator";
+import CartFeedback from "../GenericComponents/CartFeedback";
+
 const Home = ({}) => {
   const params = useParams();
   const [productsArray, setProductsArray] = React.useState([]);
@@ -21,10 +23,17 @@ const Home = ({}) => {
   React.useEffect(() => {
     fetchProductsArray(params.pageNum);
   }, [params]);
+  const feedbackStorage = localStorage.getItem("feedback");
+  console.log("test storage", localStorage.getItem("feedback"));
+  localStorage.removeItem("feedback");
+  console.log("test remove storage", localStorage.getItem("feedback"));
 
   return (
     <>
       <Wrapper>
+        {feedbackStorage && (
+          <CartFeedback id="feedback">{`Added Item `}</CartFeedback>
+        )}
         <SubWrapper numberPerRow={4}>
           {productsArray.map((item) => {
             return <ItemPreview {...item} />;

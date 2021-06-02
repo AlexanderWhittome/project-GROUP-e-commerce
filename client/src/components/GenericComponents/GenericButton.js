@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import GlobalStyles from "./GlobalStyles"
+import GlobalStyles from "./GlobalStyles";
+
 export const GenericButton = styled.button`
   color: var(--text);
   position: relative;

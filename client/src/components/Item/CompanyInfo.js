@@ -28,9 +28,11 @@ const CompanyInfo = (prop) => {
       {isLoading ? (
         <p>Loading Company...</p>
       ) : (
-        <CompanyUrl href={company.url}>
-          {company.name} in {company.country}
-        </CompanyUrl>
+        !!Object.keys(company).length && (
+          <CompanyUrl href={company.url}>
+            {company.name} in {company.country}
+          </CompanyUrl>
+        )
       )}
     </>
   );

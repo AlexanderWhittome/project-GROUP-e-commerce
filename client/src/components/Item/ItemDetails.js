@@ -40,14 +40,21 @@ const ItemDetails = (props) => {
   //   ]}>`,
   //   [newNumInCart, cartContents[itemId.productId]]
   // );
-  console.log(`❗ ItemDetails.js:43 'itemdetail.numInStock' <${typeof itemdetail.numInStock}>`,itemdetail.numInStock);
+  console.log(
+    `❗ ItemDetails.js:43 'itemdetail.numInStock' <${typeof itemdetail.numInStock}>`,
+    itemdetail.numInStock
+  );
   const plannedNumInCartExceedsStock =
     newNumInCart +
-    (cartContents[itemId.productId]
-      ? cartContents[itemId.productId].numInCart
-      : 0) > itemdetail.numInStock
-  
-  console.log(`❗ ItemDetails.js:49 'plannedNumInCartExceedsStock' <${typeof plannedNumInCartExceedsStock}>`,plannedNumInCartExceedsStock);
+      (cartContents[itemId.productId]
+        ? cartContents[itemId.productId].numInCart
+        : 0) >
+    itemdetail.numInStock;
+
+  console.log(
+    `❗ ItemDetails.js:49 'plannedNumInCartExceedsStock' <${typeof plannedNumInCartExceedsStock}>`,
+    plannedNumInCartExceedsStock
+  );
 
   return (
     <ItemWrapper>
@@ -63,6 +70,10 @@ const ItemDetails = (props) => {
               itemObject: itemdetail,
               numInCart: newNumInCart,
             });
+
+            const feedback = "sample";
+            localStorage.setItem("feedback", JSON.stringify(feedback));
+            console.log("check itemdetail storgae", localStorage);
             history.push("/");
           }}
         >
